@@ -1,11 +1,14 @@
+import BackGroundImage from "./components/BackGroundImage"
+import Register from "./components/Register"
 
 
 function App() {
 
   return (
-    <>
-    <p>Here</p>
-    </>
+    <main className="h-screen w-screen select-none">
+      <BackGroundImage />
+      <Register />
+    </main>
   )
 }
 
