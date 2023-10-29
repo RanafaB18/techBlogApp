@@ -15,7 +15,7 @@ const Register = () => {
   return (
     <>
       <div className="flex flex-col h-full justify-center items-center">
-        <div className="flex flex-col px-8 py-6 w-96 h-[430px] shadow-2xl shadow-black">
+        <div className="flex flex-col px-8 py-6 w-96 h-[440px] shadow-2xl shadow-black">
           <div className="flex gap-5">
             <button
               className={`font-bold text-2xl ${toggle ? "text-white" : "text-gray-400" }`}
@@ -24,7 +24,7 @@ const Register = () => {
               Sign Up
             </button>
             <button
-              className={`text-white font-bold text-2xl ${!toggle ? "text-white" : "text-gray-400" }`}
+              className={`font-bold text-2xl ${!toggle ? "text-white" : "text-gray-400" }`}
               onClick={showLogin}
             >
               Login

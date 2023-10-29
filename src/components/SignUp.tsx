@@ -1,42 +1,65 @@
-import { FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { ISignup } from "../interfaces";
+import { emailRegex, passwordRegex } from "../constants";
+import Input from "./Input";
+import Button from "./Button";
 
 const SignUp = () => {
-    function handleSubmit(event: FormEvent) {
-        event.preventDefault();
-        console.log("Sign up successful");
+  const [user, setUser] = useState<ISignup>({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-    }
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    console.log("Sign up successful");
+    console.log(user);
+  }
+  function handleChange(event: ChangeEvent) {
+    const { name, value } = event.target as HTMLInputElement;
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  }
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <input
-        className="outline-none caret-white text-white placeholder:text-white p-2 w-full bg-transparent border-b-2 border-white"
-        type="text"
-        placeholder="Username"
-        autoComplete="false"
-      />
-      <input
-        className="outline-none caret-white text-white placeholder:text-white p-2 w-full bg-transparent border-b-2 border-white"
-        type="text"
-        placeholder="Email"
-        autoComplete="false"
-      />
-      <input
-        className="outline-none caret-white text-white placeholder:text-white p-2 w-full bg-transparent border-b-2 border-white"
-        type="password"
+    <form
+      autoComplete="off"
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-4"
+    >
+      <>
+        <Input
+          name="username"
+          onChange={handleChange}
+          placeholder="Username"
+          type="text"
+          value={user.username}
+          focus={true}
+        />
+      </>
+      <>
+        <Input
+          name="email"
+          onChange={handleChange}
+          placeholder="Email"
+          type="email"
+          value={user.email}
+          testRegex={emailRegex}
+        />
+      </>
+      <Input
+        name="password"
+        onChange={handleChange}
         placeholder="Password"
-        autoComplete="false"
-
-      />
-      <input
-        className="outline-none caret-white text-white placeholder:text-white p-2 w-full bg-transparent border-b-2 border-white"
         type="password"
-        placeholder="Confirm Password"
-        autoComplete="false"
-
+        value={user.password}
+        testRegex={passwordRegex}
       />
-      <button className="text-white py-1 px-6 mt-3 bg-green-700 w-fit mx-auto rounded-full">
-        Register
-      </button>
+      <Button buttonText="Register" />
     </form>
   );
 };

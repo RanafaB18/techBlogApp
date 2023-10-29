@@ -1,29 +1,46 @@
-import { FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { ILogin } from "../interfaces";
+import Input from "./Input";
+import Button from "./Button";
+import { passwordRegex } from "../constants";
 
 const Login = () => {
-    function handleSubmit(event: FormEvent) {
-        event.preventDefault();
-        console.log("Log in successful");
+  const [user, setUser] = useState<ILogin>({
+    username: "",
+    password: "",
+  });
+  function handleChange(event: ChangeEvent) {
+    const target = event.target as HTMLInputElement;
 
-    }
+    setUser({
+      ...user,
+      [target.name]: target.value,
+    });
+  }
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    console.log("Log in successful");
+
+  }
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <input
-        className="outline-none caret-white text-white placeholder:text-white p-2 w-full bg-transparent border-b-2 border-white"
-        type="text"
+      <Input
+        value={user.username}
+        onChange={handleChange}
+        name="username"
         placeholder="Username"
-        autoComplete="false"
+        type="text"
+        focus={true}
       />
-
-      <input
-        className="outline-none caret-white text-white placeholder:text-white p-2 w-full bg-transparent border-b-2 border-white"
-        type="password"
+      <Input
+        value={user.password}
+        onChange={handleChange}
+        name="password"
         placeholder="Password"
-        autoComplete="false"
+        type="password"
+        testRegex={passwordRegex}
       />
-      <button className="text-white py-1 px-6 mt-3 bg-green-700 w-fit mx-auto rounded-full">
-        Login
-      </button>
+      <Button buttonText="Login"/>
     </form>
   );
 };
